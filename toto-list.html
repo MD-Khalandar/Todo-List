@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+   <head>
+    <style>
+      body{
+        font-family: arial;
+        
+      }
+      .delete-button{
+        padding:10px 20px;
+        background-color: rgb(235, 84, 84);
+        
+        border:none;
+      }
+      .div{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .todo-grid,.js-list{
+        display:grid;
+        grid-template-columns: 150px 150px 100px;
+        row-gap: 15px;
+      }
+      .add-button{
+        padding:10px 20px;
+        margin-left:10px;
+        background-color: rgb(10, 192, 10);
+        border-width: 1px;
+        border-radius: 30px;
+        border:none;
+       transition: 0.3s;
+      }
+      .add-button:hover{
+        color:rgb(10, 192, 10); 
+        background-color: black;
+        transition: 0.3s;
+        padding:15px 30px;
+      }
+      .todo-flex{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        column-gap: 10px;;
+        margin-top:50px;
+
+      }
+      .todo-input,.due-date{
+        height: 30px;
+        margin-right:10px;
+      }
+    </style>
+   </head>
+  <body>
+   <div style="display: flex;justify-content: center;align-items: center;"><div style="border: solid;border-width:1px; padding:10px 10px;"> <p style="display: flex; justify-content: center;">Todo List</p> <div class="div">
+    <input class="todo-input" placeholder="Enter Items"><input type="date" class="due-date" placeholder="due date">
+    <button onclick="add();render();" class="add-button">Add</button></div></div></div>
+    <div class="todo-flex"><div class="js-list"></div></div>
+    
+  <script>
+    
+    
+
+    let inputElement=document.querySelector('.todo-input');
+    let dateElement=document.querySelector('.due-date')
+    
+     let list=JSON.parse(localStorage.getItem('todoList')) || [];
+     
+     console.log(list)
+     render();
+    function add()
+      {
+        
+        let todo={ name:inputElement.value,
+                   date:dateElement.value};
+        list.push(todo);
+        localStorage.setItem('todoList', JSON.stringify(list));
+        
+      }
+      function render()
+      {
+        let n=list.length;
+        let inHTML='';
+       
+        for(let i=0;i<n;i++){
+          let todo= list[i];
+          inHTML+=`<div>${todo.name}</div> <div>${todo.date}</div><button class="delete-button" onclick="deleteTodo(${i});render();">delete</button>`;
+         
+          
+        
+        }
+         document.querySelector('.js-list').innerHTML=inHTML;
+        console.log(inHTML);
+      
+
+      }
+      function deleteTodo(n)
+      {
+        list.splice(n ,1);
+        localStorage.setItem('todoList', JSON.stringify(list));
+        
+      }
+
+        
+      
+   </script>
+   </body>
+</html>
