@@ -4,6 +4,7 @@
     <style>
       body{
         font-family: arial;
+        background-color: rgb(165, 200, 214);
         
       }
       .delete-button{
@@ -48,11 +49,14 @@
       .todo-input,.due-date{
         height: 30px;
         margin-right:10px;
+        border-radius: 10px;
+        border: none;
+        padding:5px 5px;
       }
     </style>
    </head>
   <body>
-   <div style="display: flex;justify-content: center;align-items: center;"><div style="border: solid;border-width:1px; padding:10px 10px;"> <p style="display: flex; justify-content: center;">Todo List</p> <div class="div">
+   <div style="display: flex;justify-content: center;align-items: center;"><div style="border: none;border-radius:20px;border-width:1px; padding:20px 20px; background-color: rgb(91, 179, 179);"> <p style="display: flex; justify-content: center;">Todo List</p> <div class="div">
     <input class="todo-input" placeholder="Enter Items"><input type="date" class="due-date" placeholder="due date">
     <button onclick="add();render();" class="add-button">Add</button></div></div></div>
     <div class="todo-flex"><div class="js-list"></div></div>
@@ -73,6 +77,11 @@
         
         let todo={ name:inputElement.value,
                    date:dateElement.value};
+              if(!inputElement.value)
+              {
+                alert("Enter Todo");
+                return;
+              }
         list.push(todo);
         localStorage.setItem('todoList', JSON.stringify(list));
         
